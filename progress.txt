@@ -818,3 +818,34 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Edit button after generation (Start Over also available)
 
 ---
+
+### Iteration 29 - story-029
+**Story:** Landing Page - Hero Section
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Replaced default Next.js page with marketing landing page
+- Navigation bar with logo, links (Pricing, Docs, Sign In), and CTA button
+- Hero section with gradient headline "Generate Beautiful PDFs in Seconds"
+- Subheadline explaining value proposition
+- CTA buttons: "Get 50 Free PDFs" and "View Docs"
+- Interactive code demo showing API usage with syntax highlighting
+- Stats bar showing "50+ Free PDFs/mo", "<2s Avg. generation", "99.9% Uptime"
+- Floating badges for visual interest
+- Features section teaser with 3 cards
+- CTA section at bottom
+- Footer with links
+
+**Files Modified:**
+- src/app/page.tsx (replaced)
+
+**Verified:**
+- [x] Page / (root) shows marketing landing page
+- [x] Hero section with headline "Generate Beautiful PDFs in Seconds"
+- [x] Subheadline explaining value proposition
+- [x] CTA buttons: "Get 50 Free PDFs" and "View Docs"
+- [x] Interactive code demo showing API usage
+- [x] Visually striking design (gradient, floating elements, code block)
+- [x] Mobile responsive (Tailwind classes)
+
+---

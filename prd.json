@@ -450,7 +450,7 @@
         "Visually striking design (not generic)",
         "Mobile responsive"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "First impression matters. Make it memorable."
     },
     {
