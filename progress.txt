@@ -901,3 +901,33 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] FAQ section answering common questions
 
 ---
+
+### Iteration 32 - story-032
+**Story:** Documentation - Quick Start
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /docs page with Quick Start Guide
+- Table of contents with anchor links
+- Step 1: How to get API key with instructions
+- Step 2: First API request with curl and JavaScript examples
+- Request parameters table
+- Step 3: Response format with JSON examples
+- Error response examples
+- Copy buttons on all code blocks
+- Next steps section with links to other features
+- Clean, readable documentation style
+
+**Files Created:**
+- src/app/docs/page.tsx
+
+**Verified:**
+- [x] /docs page exists
+- [x] Shows how to get API key
+- [x] Shows first API request example (curl + JavaScript)
+- [x] Shows response format
+- [x] Links to dashboard features
+- [x] Copy buttons on code blocks
+- [x] Clean, readable documentation style
+
+---

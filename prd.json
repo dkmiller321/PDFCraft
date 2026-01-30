@@ -496,7 +496,7 @@
         "Copy buttons on code blocks",
         "Clean, readable documentation style"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Good docs are a competitive advantage."
     },
     {
