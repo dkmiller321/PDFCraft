@@ -966,3 +966,39 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Handles errors with typed error classes
 
 ---
+
+### Iteration 34 - story-034
+**Story:** Error Handling and Logging
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created src/lib/api/errors.ts with documented error codes
+- Error codes organized by category: AUTH, VALIDATION, RESOURCE, LIMIT, PLAN, SERVER
+- All API errors return consistent format: {error: {code, message, details?}}
+- Validation errors include field-level details (via Zod)
+- 500 errors use safe messages that don't leak internals
+- Added logError() function for server-side structured logging
+- Added rateLimitError() with Retry-After header
+- Enhanced apiError() to support custom headers
+
+**Files Created/Modified:**
+- src/lib/api/errors.ts (new - error codes and logging)
+- src/lib/api/auth.ts (enhanced apiError, added rateLimitError)
+
+**Error Code Categories:**
+- AUTH_ERRORS: MISSING_API_KEY, INVALID_API_KEY_FORMAT, INVALID_API_KEY, API_KEY_REVOKED
+- VALIDATION_ERRORS: INVALID_JSON, VALIDATION_ERROR, INVALID_TEMPLATE
+- RESOURCE_ERRORS: NOT_FOUND
+- LIMIT_ERRORS: LIMIT_EXCEEDED, RATE_LIMITED
+- PLAN_ERRORS: PLAN_REQUIRED, PLAN_NOT_CONFIGURED
+- SERVER_ERRORS: DATABASE_ERROR, SUBSCRIPTION_ERROR, UPLOAD_ERROR, AI_ERROR
+
+**Verified:**
+- [x] All API errors return consistent JSON format
+- [x] Error codes are documented constants
+- [x] Validation errors include field-level details
+- [x] 500 errors don't leak internal details
+- [x] Errors are logged server-side (logError function)
+- [x] Rate limit errors include retry-after header
+
+---

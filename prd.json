@@ -527,7 +527,7 @@
         "Errors are logged server-side for debugging",
         "Rate limit errors include retry-after header"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Good errors save support time."
     },
     {

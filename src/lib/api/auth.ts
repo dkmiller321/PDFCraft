@@ -133,12 +133,21 @@ export async function validateApiKey(request: Request): Promise<ValidateApiKeyRe
 
 /**
  * Helper to create a standardized API error response
+ *
+ * All API errors return: { error: { code, message, details? } }
+ *
+ * @param code - Error code (e.g., 'INVALID_API_KEY', 'LIMIT_EXCEEDED')
+ * @param message - Human-readable error message
+ * @param status - HTTP status code (default: 400)
+ * @param details - Additional error details (e.g., field errors, limits)
+ * @param headers - Additional response headers (e.g., Retry-After)
  */
 export function apiError(
   code: string,
   message: string,
   status: number = 400,
-  details?: Record<string, unknown>
+  details?: Record<string, unknown>,
+  headers?: Record<string, string>
 ) {
   return Response.json(
     {
@@ -148,6 +157,22 @@ export function apiError(
         ...(details && { details }),
       },
     },
-    { status }
+    {
+      status,
+      headers: headers ? new Headers(headers) : undefined,
+    }
+  )
+}
+
+/**
+ * Create a rate limit error response with Retry-After header
+ */
+export function rateLimitError(retryAfterSeconds: number = 60) {
+  return apiError(
+    'RATE_LIMITED',
+    'Too many requests. Please try again later.',
+    429,
+    { retry_after: retryAfterSeconds },
+    { 'Retry-After': String(retryAfterSeconds) }
   )
 }
