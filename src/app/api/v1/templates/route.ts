@@ -3,6 +3,7 @@ import { z } from 'zod'
 import Handlebars from 'handlebars'
 import { validateApiKey, apiError } from '@/lib/api/auth'
 import { createAdminClient } from '@/lib/supabase/admin'
+import type { Json } from '@/types/database'
 
 // Request validation schema for creating templates
 const createTemplateSchema = z.object({
@@ -10,7 +11,7 @@ const createTemplateSchema = z.object({
   description: z.string().max(1000).optional(),
   html: z.string().min(1),
   css: z.string().optional(),
-  sample_data: z.record(z.unknown()).optional(),
+  sample_data: z.record(z.string(), z.unknown()).optional(),
 })
 
 /**
@@ -129,7 +130,7 @@ export async function POST(request: Request) {
       description: description || null,
       html,
       css: css || null,
-      sample_data: sample_data || {},
+      sample_data: (sample_data || {}) as Json,
       variables,
       is_public: false,
     })

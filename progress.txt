@@ -549,3 +549,42 @@ All options already implemented in /api/v1/generate:
 - [x] Returns 404 for templates not owned by user
 
 ---
+
+### Iteration 20 - story-020
+**Story:** Template Generation Endpoint
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created POST /api/v1/templates/[id]/generate endpoint
+- Accepts data object with template variables
+- Fetches template by ID (checks ownership or public)
+- Substitutes variables in HTML using Handlebars.compile()
+- Wraps rendered HTML with CSS in full HTML document
+- Generates PDF using existing PDF generation service
+- Records generation with template_id reference (input_type='template')
+- Returns same response format as /api/v1/generate
+- Includes template_id in response for reference
+
+**Files Created:**
+- src/app/api/v1/templates/[id]/generate/route.ts
+
+**API Usage:**
+```bash
+curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
+  -H "Authorization: Bearer pk_live_..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "data": {"name": "John", "amount": "$100"},
+    "options": {"format": "A4"}
+  }'
+```
+
+**Verified:**
+- [x] POST /api/v1/templates/[id]/generate accepts data object
+- [x] Fetches template by ID (must belong to user or be public)
+- [x] Substitutes variables in HTML using Handlebars
+- [x] Generates PDF using the PDF generation service
+- [x] Records generation with template_id reference
+- [x] Returns same response format as /api/v1/generate
+
+---

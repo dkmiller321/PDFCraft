@@ -310,7 +310,7 @@
         "Records generation with template_id reference",
         "Returns same response format as /api/v1/generate"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Install handlebars package for templating."
     },
     {

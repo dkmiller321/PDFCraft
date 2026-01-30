@@ -116,12 +116,13 @@ export async function validateApiKey(request: Request): Promise<ValidateApiKeyRe
   }
 
   // Update last_used_at timestamp (non-blocking)
-  supabase
+  void supabase
     .from('api_keys')
     .update({ last_used_at: new Date().toISOString() })
     .eq('id', apiKeyRecord.id)
-    .then(() => {}) // Fire and forget
-    .catch((err) => console.error('Error updating last_used_at:', err))
+    .then(() => {
+      // Fire and forget
+    })
 
   return {
     success: true,

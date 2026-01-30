@@ -10,7 +10,7 @@ const updateTemplateSchema = z.object({
   description: z.string().max(1000).optional().nullable(),
   html: z.string().min(1).optional(),
   css: z.string().optional().nullable(),
-  sample_data: z.record(z.unknown()).optional(),
+  sample_data: z.record(z.string(), z.unknown()).optional(),
   is_public: z.boolean().optional(),
 })
 
