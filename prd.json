@@ -43,7 +43,7 @@
         "Policy allows public read access for files in 'public/*' folder",
         "Bucket has 50MB file size limit"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "PDFs will be stored as {user_id}/{generation_id}.pdf"
     },
     {

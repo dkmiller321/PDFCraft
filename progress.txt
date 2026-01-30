@@ -78,3 +78,28 @@
 - [x] Auto-creation configured - will fire automatically on new signups
 
 ---
+
+### Iteration 3 - story-003
+**Story:** Supabase Storage Bucket Setup
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created 'pdfs' storage bucket with 50MB file size limit
+- Restricted to application/pdf mime type only
+- Created 5 storage policies for access control
+
+**Storage Policies:**
+- Users can upload to own folder (INSERT) - user_id/* path
+- Users can read own files (SELECT) - user_id/* path
+- Users can update own files (UPDATE) - user_id/* path
+- Users can delete own files (DELETE) - user_id/* path
+- Public read access for public folder (SELECT) - public/* path
+
+**Verified:**
+- [x] Storage bucket 'pdfs' exists (verified via storage.buckets query)
+- [x] Upload policy for authenticated users to user_id/* folder
+- [x] Read policy for authenticated users' own files
+- [x] Public read access for 'public/*' folder
+- [x] 50MB file size limit (52428800 bytes)
+
+---
