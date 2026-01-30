@@ -59,3 +59,22 @@
 - [x] RLS enabled on all tables with policies (verified via pg_policies)
 
 ---
+
+### Iteration 2 - story-002
+**Story:** Supabase Auth Trigger Setup
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created `handle_new_user()` function that fires on auth.users INSERT
+- Function creates a profile row with id, email, full_name, avatar_url from user metadata
+- Function creates a subscription row with plan='free', status='active', credits_limit=50
+- Created trigger `on_auth_user_created` attached to auth.users table
+- Granted necessary permissions to supabase_auth_admin role
+
+**Verified:**
+- [x] Function 'handle_new_user' exists (verified via information_schema.routines)
+- [x] Function creates subscription with plan='free', credits_limit=50, status='active' (verified via pg_get_functiondef)
+- [x] Trigger 'on_auth_user_created' attached to auth.users INSERT (verified via information_schema.triggers)
+- [x] Auto-creation configured - will fire automatically on new signups
+
+---

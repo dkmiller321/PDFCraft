@@ -122,4 +122,4 @@ npx supabase gen types typescript --project-id <project-id> > types/database.ts
 
 ---
 
-*Last updated: Iteration 1 - story-001*
+*Last updated: Iteration 2 - story-002*

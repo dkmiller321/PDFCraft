@@ -29,7 +29,7 @@
         "Trigger 'on_auth_user_created' is attached to auth.users table",
         "New user signup creates both profile and subscription automatically"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "This ensures every user gets a profile and free tier immediately."
     },
     {
