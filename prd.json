@@ -119,7 +119,7 @@
         "Successful signup sends confirmation email and shows message",
         "Pages use shadcn/ui components for consistent styling"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use Supabase Auth UI or custom forms with signInWithPassword/signUp."
     },
     {

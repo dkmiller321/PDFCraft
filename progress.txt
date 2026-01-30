@@ -205,3 +205,34 @@ must be set manually in Vercel Dashboard.
 - [x] /api/v1/* routes pass through (API key validation in handlers)
 
 ---
+
+### Iteration 8 - story-008
+**Story:** Auth Pages - Login and Signup
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Initialized shadcn/ui with button, input, label, card components
+- Created /login page with email/password form
+- Created /signup page with email/password form and success state
+- Added OAuth buttons for GitHub and Google
+- Created /auth/callback route for OAuth flow
+- Form validation with error display
+
+**Files Created:**
+- src/app/(auth)/login/page.tsx
+- src/app/(auth)/signup/page.tsx
+- src/app/auth/callback/route.ts
+- src/components/ui/button.tsx, input.tsx, label.tsx, card.tsx
+- src/lib/utils.ts
+- components.json
+
+**Verified:**
+- [x] /login page exists with email/password form
+- [x] /signup page exists with email/password form
+- [x] OAuth buttons for GitHub and Google present
+- [x] Form validation shows errors for invalid input
+- [x] Login redirects to /dashboard (via redirectTo param)
+- [x] Signup shows confirmation email message on success
+- [x] Pages use shadcn/ui components (Card, Button, Input, Label)
+
+---
