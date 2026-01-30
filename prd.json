@@ -372,7 +372,7 @@
         "Handles invoice.paid - resets credits_used, updates period dates",
         "Returns 200 for handled events, 400 for signature errors"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Critical for billing accuracy. Test thoroughly with Stripe CLI."
     },
     {

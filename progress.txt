@@ -674,3 +674,36 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Cancel URL returns to /pricing
 
 ---
+
+### Iteration 24 - story-024
+**Story:** Stripe Webhook Handler
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created POST /api/webhooks/stripe endpoint
+- Validates webhook signature using STRIPE_WEBHOOK_SECRET
+- Handles checkout.session.completed - creates/updates subscription
+- Handles customer.subscription.updated - syncs plan changes
+- Handles customer.subscription.deleted - downgrades to free plan
+- Handles invoice.paid - resets credits_used, updates period dates
+- Returns 200 for handled events, 400 for invalid signature
+
+**Files Created:**
+- src/app/api/webhooks/stripe/route.ts
+
+**Events Handled:**
+- checkout.session.completed → Create/update subscription
+- customer.subscription.updated → Sync plan changes
+- customer.subscription.deleted → Downgrade to free
+- invoice.paid → Reset credits, update period
+
+**Verified:**
+- [x] POST /api/webhooks/stripe receives Stripe events
+- [x] Validates webhook signature using STRIPE_WEBHOOK_SECRET
+- [x] Handles checkout.session.completed
+- [x] Handles customer.subscription.updated
+- [x] Handles customer.subscription.deleted
+- [x] Handles invoice.paid
+- [x] Returns 200 for handled events, 400 for signature errors
+
+---
