@@ -378,3 +378,33 @@ must be set manually in Vercel Dashboard.
 - [x] Checks if key is revoked
 
 ---
+
+### Iteration 14 - story-014
+**Story:** PDF Generation Core - Puppeteer Setup
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Installed puppeteer-core and @sparticuz/chromium
+- Created lib/pdf/generator.ts with generatePdf function
+- Also created generatePdfFromUrl for URL-based generation
+- Detects serverless environment automatically
+- Uses @sparticuz/chromium in serverless, local Chrome otherwise
+- Full error handling with meaningful error codes
+
+**Files Created:**
+- src/lib/pdf/generator.ts
+
+**Functions:**
+- generatePdf(html, options) - Generate PDF from HTML string
+- generatePdfFromUrl(url, options) - Generate PDF from URL
+
+**Verified:**
+- [x] lib/pdf/generator.ts exports generatePdf function
+- [x] Uses @sparticuz/chromium for serverless
+- [x] Uses puppeteer-core to connect to Chromium
+- [x] Accepts html string and options object
+- [x] Returns Buffer of generated PDF (with sizeBytes)
+- [x] Handles errors with meaningful codes (TIMEOUT, BROWSER_NOT_FOUND, etc.)
+- [x] Auto-detects environment (serverless vs local)
+
+---
