@@ -1032,3 +1032,46 @@ For multi-instance production, upgrade to Vercel KV or Upstash Redis.
 - [x] Rate limit module ready (in-memory, upgradeable to Redis)
 
 ---
+
+### Iteration 36 - story-036
+**Story:** SEO and Meta Tags
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Updated src/app/layout.tsx with comprehensive metadata
+- Title template: "%s | PDFCraft" with default "PDFCraft - Generate Beautiful PDFs from HTML"
+- Description, keywords, authors, creator
+- Open Graph tags: type, locale, url, siteName, title, description, images
+- Twitter card tags: summary_large_image, title, description, images, creator
+- Robots meta with googleBot settings (index, follow, preview settings)
+- Canonical URL via alternates
+- Created src/app/sitemap.ts with all main pages
+- Created src/app/robots.ts with proper crawl rules
+
+**Files Created/Modified:**
+- src/app/layout.tsx (enhanced metadata)
+- src/app/sitemap.ts (new)
+- src/app/robots.ts (new)
+
+**Robots.txt Configuration:**
+- Allow: /
+- Disallow: /api/, /dashboard/
+- Sitemap: {siteUrl}/sitemap.xml
+
+**Sitemap Pages:**
+- / (priority: 1, weekly)
+- /pricing (priority: 0.9, monthly)
+- /docs (priority: 0.8, weekly)
+- /login (priority: 0.5, yearly)
+- /signup (priority: 0.5, yearly)
+
+**Verified:**
+- [x] Root layout has proper title template
+- [x] Each page has unique title and description (via template)
+- [x] Open Graph tags for social sharing
+- [x] Twitter card tags
+- [x] Sitemap.xml generated (via sitemap.ts)
+- [x] robots.txt configured (via robots.ts)
+- [x] Canonical URLs set (via alternates)
+
+---

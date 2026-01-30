@@ -557,7 +557,7 @@
         "robots.txt configured",
         "Canonical URLs set"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "SEO is a key growth channel for this product."
     },
     {
