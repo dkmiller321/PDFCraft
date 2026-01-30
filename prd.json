@@ -196,7 +196,7 @@
         "Returns 401 with clear error message if invalid",
         "Checks if key is revoked"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "This is the core auth for the public API."
     },
     {

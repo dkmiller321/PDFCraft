@@ -345,3 +345,36 @@ must be set manually in Vercel Dashboard.
 - [x] Revoked keys shown in separate greyed section
 
 ---
+
+### Iteration 13 - story-013
+**Story:** API Authentication Middleware
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created lib/api/auth.ts with validateApiKey function
+- Extracts Bearer token from Authorization header
+- Hashes key with SHA-256 and compares to stored hash
+- Returns userId and apiKeyId if valid
+- Updates last_used_at asynchronously
+- Returns 401 with clear error codes if invalid
+- Checks revoked_at before allowing access
+
+**Files Created:**
+- src/lib/api/auth.ts
+
+**Error Codes:**
+- MISSING_API_KEY: No Authorization header
+- INVALID_API_KEY_FORMAT: Key doesn't match expected format
+- INVALID_API_KEY: Key not found in database
+- API_KEY_REVOKED: Key has been revoked
+
+**Verified:**
+- [x] lib/api/auth.ts exports validateApiKey
+- [x] Accepts key from Authorization: Bearer header
+- [x] Hashes key and compares to stored hashes
+- [x] Returns user_id and api_key_id if valid
+- [x] Updates last_used_at asynchronously
+- [x] Returns 401 with clear error message
+- [x] Checks if key is revoked
+
+---
