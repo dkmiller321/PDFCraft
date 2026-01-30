@@ -434,7 +434,7 @@
         "Shows preview of generated template",
         "Save and Edit buttons after generation"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Make this delightful - it's the wow feature."
     },
     {

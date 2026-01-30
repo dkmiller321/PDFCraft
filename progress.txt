@@ -787,3 +787,34 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Limits AI generations based on plan (Pro/Enterprise only)
 
 ---
+
+### Iteration 28 - story-028
+**Story:** AI Template Generation - Frontend
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /dashboard/ai-template page
+- Large textarea for prompt input
+- Suggested prompts as clickable buttons
+- Style selector with 4 options (minimal, corporate, creative, bold)
+- Color picker with presets and custom color input
+- Generate button with loading state
+- Preview panel showing generated HTML
+- Displays detected variables as badges
+- Start Over and Edit Template buttons
+- Upgrade dialog for non-Pro/Enterprise users
+
+**Files Created:**
+- src/app/(dashboard)/dashboard/ai-template/page.tsx
+
+**Verified:**
+- [x] Accessible from dashboard (via AI Template button)
+- [x] Page with large text input for prompt
+- [x] Suggested prompts/examples shown
+- [x] Style selector: minimal, corporate, creative, bold
+- [x] Optional color picker for brand colors
+- [x] Generate button with loading state
+- [x] Shows preview of generated template
+- [x] Edit button after generation (Start Over also available)
+
+---
