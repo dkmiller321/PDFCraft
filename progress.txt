@@ -588,3 +588,31 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Returns same response format as /api/v1/generate
 
 ---
+
+### Iteration 21 - story-021
+**Story:** Templates List Page
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /dashboard/templates page with client-side rendering
+- Grid layout showing template cards
+- Each card displays: name, description, updated date, public badge
+- Edit button links to template editor
+- Duplicate button copies template with "(Copy)" suffix
+- Delete button with confirmation dialog
+- Create New Template button at top
+- Empty state with icon and helpful message
+- Search/filter by name or description
+
+**Files Created:**
+- src/app/(dashboard)/dashboard/templates/page.tsx
+
+**Verified:**
+- [x] /dashboard/templates page exists
+- [x] Shows grid of template cards with name, description, updated date
+- [x] Each card has Edit, Duplicate, Delete buttons
+- [x] Create New Template button at top
+- [x] Empty state with helpful message for new users
+- [x] Search/filter functionality
+
+---

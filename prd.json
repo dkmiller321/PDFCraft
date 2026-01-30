@@ -325,7 +325,7 @@
         "Empty state with helpful message for new users",
         "Search/filter functionality"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use shadcn card components."
     },
     {
