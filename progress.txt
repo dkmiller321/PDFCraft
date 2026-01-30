@@ -931,3 +931,38 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Clean, readable documentation style
 
 ---
+
+### Iteration 33 - story-033
+**Story:** TypeScript SDK - Core
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created TypeScript SDK at src/lib/sdk
+- PDFCraft class with constructor taking apiKey or config object
+- generate(options) method for HTML/URL to PDF
+- templates.list() - list all templates
+- templates.get(id) - get single template
+- templates.create(options) - create template
+- templates.update(id, options) - update template
+- templates.delete(id) - delete template
+- templates.generate(id, data) - generate PDF from template
+- ai.generateTemplate(options) - AI template generation
+- Full TypeScript types for all options and responses
+- Typed error classes: PDFCraftError, AuthenticationError, ValidationError, LimitExceededError, NotFoundError, PlanRequiredError
+
+**Files Created:**
+- src/lib/sdk/index.ts (exports)
+- src/lib/sdk/client.ts (main PDFCraft class)
+- src/lib/sdk/types.ts (TypeScript types)
+- src/lib/sdk/errors.ts (error classes)
+
+**Verified:**
+- [x] Package at lib/sdk
+- [x] Exports PDFCraft class with constructor taking apiKey
+- [x] Method generate(options) calls POST /api/v1/generate
+- [x] Method templates.list() calls GET /api/v1/templates
+- [x] Method templates.generate(id, data) generates from template
+- [x] Full TypeScript types for all options and responses
+- [x] Handles errors with typed error classes
+
+---

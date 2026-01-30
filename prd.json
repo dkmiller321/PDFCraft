@@ -512,7 +512,7 @@
         "Full TypeScript types for all options and responses",
         "Handles errors with typed error classes"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Publish to npm as @pdfcraft/sdk eventually."
     },
     {
