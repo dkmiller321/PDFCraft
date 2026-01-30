@@ -519,3 +519,33 @@ All options already implemented in /api/v1/generate:
 - [x] Upgrade button for free/starter plans
 
 ---
+
+### Iteration 19 - story-019
+**Story:** Templates CRUD - Backend
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Installed handlebars package
+- Created POST /api/v1/templates - creates template
+- Created GET /api/v1/templates - lists user's templates
+- Created GET /api/v1/templates/[id] - returns single template
+- Created PUT /api/v1/templates/[id] - updates template
+- Created DELETE /api/v1/templates/[id] - deletes template
+- Validates Handlebars syntax in HTML
+- Extracts variables from templates automatically
+- Returns 404 for templates not owned by user
+
+**Files Created:**
+- src/app/api/v1/templates/route.ts (GET, POST)
+- src/app/api/v1/templates/[id]/route.ts (GET, PUT, DELETE)
+
+**Verified:**
+- [x] POST creates template with name, description, html, css, sample_data
+- [x] GET lists user's templates
+- [x] GET [id] returns single template
+- [x] PUT [id] updates template
+- [x] DELETE [id] deletes template
+- [x] Validates Handlebars syntax
+- [x] Returns 404 for templates not owned by user
+
+---

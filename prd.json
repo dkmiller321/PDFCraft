@@ -295,7 +295,7 @@
         "Validate template HTML contains valid Handlebars syntax",
         "Return 404 for templates not owned by user"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use Handlebars for variable substitution syntax."
     },
     {
