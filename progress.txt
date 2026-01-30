@@ -707,3 +707,26 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Returns 200 for handled events, 400 for signature errors
 
 ---
+
+### Iteration 25 - story-025
+**Story:** Stripe Customer Portal
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created POST /api/stripe/portal endpoint
+- Creates Stripe Billing Portal session for authenticated user
+- Retrieves customer ID from subscriptions table
+- Returns portal URL for redirect
+- Return URL set to /dashboard/settings
+
+**Files Created:**
+- src/app/api/stripe/portal/route.ts
+
+**Verified:**
+- [x] POST /api/stripe/portal creates billing portal session
+- [x] Redirects user to Stripe Customer Portal
+- [x] User can update payment method (via Portal)
+- [x] User can cancel subscription (via Portal)
+- [x] Return URL brings user back to /dashboard/settings
+
+---

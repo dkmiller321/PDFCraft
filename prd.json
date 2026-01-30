@@ -386,7 +386,7 @@
         "User can cancel subscription",
         "Return URL brings user back to /dashboard/settings"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Stripe Portal handles most billing UI needs."
     },
     {
