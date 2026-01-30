@@ -264,3 +264,32 @@ must be set manually in Vercel Dashboard.
 - [x] Layout fetches profile from Supabase
 
 ---
+
+### Iteration 10 - story-010
+**Story:** Dashboard Home Page
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /dashboard page with usage stats cards
+- PDF usage with progress bar (credits_used / credits_limit)
+- Template count display
+- Current plan display with upgrade links
+- Quick start curl code snippet with masked API key
+- Recent generations list (last 5) with status badges
+- Action buttons for Create Template and AI Template
+
+**Files Created:**
+- src/app/(dashboard)/dashboard/page.tsx
+- src/components/ui/progress.tsx
+- src/components/ui/badge.tsx
+
+**Verified:**
+- [x] /dashboard page exists and renders
+- [x] Shows PDF count vs limit with progress bar
+- [x] Shows template count
+- [x] Shows current plan name
+- [x] Quick start code with API key prefix (masked)
+- [x] Recent generations with status icons and size
+- [x] Buttons for Create Template and AI Template
+
+---
