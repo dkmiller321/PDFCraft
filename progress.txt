@@ -103,3 +103,30 @@
 - [x] 50MB file size limit (52428800 bytes)
 
 ---
+
+### Iteration 4 - story-004
+**Story:** Stripe Products and Prices Setup
+**Status:** ⚠️ BLOCKED - Requires manual Stripe Dashboard setup
+
+**What Was Done:**
+- Created lib/stripe/config.ts with plan definitions
+- Documented all 4 products with prices and features
+- Created helper functions for plan lookups
+
+**Blocking Issue:**
+Stripe MCP server does not have create_product or create_price tools.
+Products must be created manually in Stripe Dashboard.
+
+**Manual Steps Required:**
+1. Go to https://dashboard.stripe.com/products
+2. Create 4 products:
+   - PDFCraft Free ($0)
+   - PDFCraft Starter ($19/month recurring)
+   - PDFCraft Pro ($49/month recurring)
+   - PDFCraft Enterprise ($149/month recurring)
+3. Update src/lib/stripe/config.ts with actual product/price IDs
+
+**Files Created:**
+- src/lib/stripe/config.ts (placeholder IDs need updating)
+
+---
