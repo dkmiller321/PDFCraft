@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, FileText, Zap, Code2, Sparkles } from 'lucide-react'
+import { ArrowRight, FileText, Zap, Code2, Sparkles, Layout, Lock, Globe } from 'lucide-react'
 
 export default function Home() {
   return (
@@ -64,7 +64,7 @@ export default function Home() {
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="text-lg px-8">
-                  <Link href="/docs">View Docs</Link>
+                  <a href="#features">View Features</a>
                 </Button>
               </div>
 
@@ -145,45 +145,117 @@ const { url } = await response.json();
         </div>
       </section>
 
-      {/* Features Section Teaser */}
-      <section className="py-20 bg-slate-50 dark:bg-slate-900/50" id="features">
+      {/* Features Section */}
+      <section className="py-20 bg-slate-50 dark:bg-slate-900/50 scroll-mt-20" id="features">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold mb-4">Everything you need for PDF generation</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Everything you need for PDF generation</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               From simple HTML to complex templates, PDFCraft handles it all with a clean, developer-friendly API.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Simple API */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                 <Code2 className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Simple API</h3>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground mb-4">
                 Generate PDFs with a single API call. No complex setup, no headless browsers to manage.
               </p>
+              <pre className="bg-slate-900 text-slate-300 text-xs p-3 rounded-lg overflow-x-auto">
+{`fetch('/api/v1/generate', {
+  body: JSON.stringify({
+    html: '<h1>Hello!</h1>'
+  })
+})`}
+              </pre>
             </div>
 
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm">
+            {/* AI Templates */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                 <Sparkles className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-lg font-semibold mb-2">AI Templates</h3>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground mb-4">
                 Describe what you need and let AI create professional templates for you instantly.
               </p>
+              <pre className="bg-slate-900 text-slate-300 text-xs p-3 rounded-lg overflow-x-auto">
+{`fetch('/api/v1/ai/generate-template', {
+  body: JSON.stringify({
+    prompt: 'Professional invoice'
+  })
+})`}
+              </pre>
             </div>
 
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm">
+            {/* Lightning Fast */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                 <Zap className="w-6 h-6 text-primary" />
               </div>
               <h3 className="text-lg font-semibold mb-2">Lightning Fast</h3>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground mb-4">
                 Generate PDFs in under 2 seconds on average. Built for high-volume production use.
               </p>
+              <div className="flex items-center gap-4 text-sm">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-green-500" />
+                  <span>&lt;2s average</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-green-500" />
+                  <span>99.9% uptime</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Reusable Templates */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Layout className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Reusable Templates</h3>
+              <p className="text-muted-foreground mb-4">
+                Create templates with Handlebars variables and generate PDFs with dynamic data.
+              </p>
+              <pre className="bg-slate-900 text-slate-300 text-xs p-3 rounded-lg overflow-x-auto">
+{`<h1>Invoice for {{name}}</h1>
+<p>Amount: {{amount}}</p>`}
+              </pre>
+            </div>
+
+            {/* Secure by Default */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Lock className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Secure by Default</h3>
+              <p className="text-muted-foreground mb-4">
+                API key authentication, encrypted storage, and your data is never shared or used for training.
+              </p>
+              <pre className="bg-slate-900 text-slate-300 text-xs p-3 rounded-lg overflow-x-auto">
+{`Authorization: Bearer pk_live_xxx
+Content-Type: application/json`}
+              </pre>
+            </div>
+
+            {/* Developer Tools */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                <Globe className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Developer Tools</h3>
+              <p className="text-muted-foreground mb-4">
+                TypeScript SDK, usage dashboard, generation history, and comprehensive documentation.
+              </p>
+              <pre className="bg-slate-900 text-slate-300 text-xs p-3 rounded-lg overflow-x-auto">
+{`import { PDFCraft } from 'pdfcraft'
+const pdf = new PDFCraft(apiKey)`}
+              </pre>
             </div>
           </div>
         </div>

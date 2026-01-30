@@ -464,7 +464,7 @@
         "Code snippets showing ease of use",
         "Smooth scroll from hero CTA"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Focus on developer pain points we solve."
     },
     {

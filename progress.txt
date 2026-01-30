@@ -849,3 +849,28 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Mobile responsive (Tailwind classes)
 
 ---
+
+### Iteration 30 - story-030
+**Story:** Landing Page - Features Section
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Expanded features section from 3 to 6 features
+- Each feature card has icon, title, description, and code snippet
+- Features: Simple API, AI Templates, Fast Generation, Reusable Templates, Secure by Default, Developer Tools
+- Code snippets show API usage for each feature
+- Changed hero CTA to "View Features" with smooth scroll anchor
+- Added scroll-mt-20 for proper scroll offset
+- Hover effects on feature cards
+
+**Files Modified:**
+- src/app/page.tsx (expanded features section)
+
+**Verified:**
+- [x] Features section with 6 key features
+- [x] Each feature has icon, title, description
+- [x] Features include: Simple API, AI Templates, Fast Generation, Developer Tools
+- [x] Code snippets showing ease of use
+- [x] Smooth scroll from hero CTA (href="#features")
+
+---
