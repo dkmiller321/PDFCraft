@@ -1,0 +1,61 @@
+# PDFCraft Build Progress
+
+## Project Info
+- **Name:** PDFCraft
+- **Description:** PDF generation SaaS with AI-powered template creation
+- **Started:** 2025-01-30
+- **Method:** Ralph Autonomous Development Loop
+
+## MCP Servers Available
+- `supabase` - Database, auth, storage
+- `vercel` - Deployment, env vars
+- `stripe` - Products, prices, subscriptions
+
+## Key Decisions
+- Using Next.js 14 App Router
+- Supabase for auth and database
+- Puppeteer for PDF generation
+- Claude API for AI template generation
+- Stripe for payments
+
+---
+
+## Iteration Log
+
+### Iteration 0 - Project Setup
+- Created project structure
+- Generated prd.json with 38 stories
+- Ready to begin autonomous development
+
+---
+
+### Iteration 1 - story-001
+**Story:** Supabase Database Schema Setup
+**Status:** ✅ Complete
+
+**Supabase Project:** mmywsbwmxrpogawwwlbm (shared with Deal Scout due to free tier limits)
+
+**What Was Done:**
+- Created 5 PDFCraft tables via Supabase migration: profiles, api_keys, templates, generations, subscriptions
+- All tables have proper foreign key relationships (profiles → auth.users, others → profiles)
+- Created indexes on all user_id columns plus additional useful indexes (key_hash, status, created_at)
+- Enabled RLS on all tables with appropriate policies for authenticated users
+- Added updated_at triggers for automatic timestamp updates
+
+**Database Schema:**
+- `profiles`: Links to auth.users, stores user profile info
+- `api_keys`: Stores hashed API keys with prefix for display
+- `templates`: HTML/CSS templates with Handlebars variables
+- `generations`: PDF generation records with status tracking
+- `subscriptions`: Stripe subscription data with usage limits
+
+**Verified:**
+- [x] Table 'profiles' exists with correct columns (uuid pk, email, full_name, avatar_url, timestamps)
+- [x] Table 'api_keys' exists with correct columns (uuid pk, user_id fk, name, key_prefix, key_hash, timestamps)
+- [x] Table 'templates' exists with correct columns (uuid pk, user_id fk, name, description, html, css, sample_data, variables, is_public, timestamps)
+- [x] Table 'generations' exists with correct columns (uuid pk, user_id/api_key_id/template_id fks, input_type, options, status, output fields, timestamps)
+- [x] Table 'subscriptions' exists with correct columns (uuid pk, user_id fk unique, stripe fields, plan, status, credits, period timestamps)
+- [x] All tables have indexes on user_id columns (verified via pg_indexes)
+- [x] RLS enabled on all tables with policies (verified via pg_policies)
+
+---

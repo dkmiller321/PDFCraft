@@ -1,0 +1,604 @@
+{
+  "project": "PDFCraft",
+  "description": "PDF generation SaaS with AI-powered template creation",
+  "version": "1.0.0",
+  "stories": [
+    {
+      "id": "story-001",
+      "title": "Supabase Database Schema Setup",
+      "description": "Create all database tables in Supabase for users, API keys, templates, generations, and subscriptions",
+      "acceptance_criteria": [
+        "Table 'profiles' exists with columns: id (uuid, pk), email (text), full_name (text), avatar_url (text), created_at (timestamptz), updated_at (timestamptz)",
+        "Table 'api_keys' exists with columns: id (uuid, pk), user_id (uuid, fk), name (text), key_prefix (text), key_hash (text), last_used_at (timestamptz), created_at (timestamptz), revoked_at (timestamptz)",
+        "Table 'templates' exists with columns: id (uuid, pk), user_id (uuid, fk), name (text), description (text), html (text), css (text), sample_data (jsonb), variables (jsonb), is_public (boolean), created_at (timestamptz), updated_at (timestamptz)",
+        "Table 'generations' exists with columns: id (uuid, pk), user_id (uuid, fk), api_key_id (uuid, fk), template_id (uuid, fk), input_type (text), options (jsonb), status (text), output_url (text), output_size_bytes (int), duration_ms (int), error_message (text), created_at (timestamptz), completed_at (timestamptz)",
+        "Table 'subscriptions' exists with columns: id (uuid, pk), user_id (uuid, fk unique), stripe_customer_id (text), stripe_subscription_id (text), stripe_price_id (text), plan (text), status (text), credits_used (int), credits_limit (int), current_period_start (timestamptz), current_period_end (timestamptz), created_at (timestamptz), updated_at (timestamptz)",
+        "All tables have appropriate indexes on user_id columns",
+        "RLS is enabled on all tables with policies for authenticated users to access their own data"
+      ],
+      "passes": true,
+      "notes": "Use Supabase MCP to execute SQL. Create tables in order due to foreign key dependencies."
+    },
+    {
+      "id": "story-002",
+      "title": "Supabase Auth Trigger Setup",
+      "description": "Create database trigger to auto-create profile and free subscription when user signs up",
+      "acceptance_criteria": [
+        "Function 'handle_new_user' exists that creates a profile row when auth.users insert happens",
+        "Function also creates a subscription row with plan='free', credits_limit=50, status='active'",
+        "Trigger 'on_auth_user_created' is attached to auth.users table",
+        "New user signup creates both profile and subscription automatically"
+      ],
+      "passes": false,
+      "notes": "This ensures every user gets a profile and free tier immediately."
+    },
+    {
+      "id": "story-003",
+      "title": "Supabase Storage Bucket Setup",
+      "description": "Create storage bucket for generated PDFs with appropriate policies",
+      "acceptance_criteria": [
+        "Storage bucket 'pdfs' exists",
+        "Policy allows authenticated users to upload to their own folder (user_id/*)",
+        "Policy allows authenticated users to read their own files",
+        "Policy allows public read access for files in 'public/*' folder",
+        "Bucket has 50MB file size limit"
+      ],
+      "passes": false,
+      "notes": "PDFs will be stored as {user_id}/{generation_id}.pdf"
+    },
+    {
+      "id": "story-004",
+      "title": "Stripe Products and Prices Setup",
+      "description": "Create Stripe products and prices for all subscription tiers",
+      "acceptance_criteria": [
+        "Product 'PDFCraft Free' exists in Stripe",
+        "Product 'PDFCraft Starter' exists with price $19/month",
+        "Product 'PDFCraft Pro' exists with price $49/month",
+        "Product 'PDFCraft Enterprise' exists with price $149/month",
+        "All prices are recurring monthly",
+        "Price IDs are documented in a config file at lib/stripe/config.ts"
+      ],
+      "passes": false,
+      "notes": "Use Stripe MCP to create products and prices. Store price IDs for later use."
+    },
+    {
+      "id": "story-005",
+      "title": "Environment Variables Configuration",
+      "description": "Set up all required environment variables in Vercel",
+      "acceptance_criteria": [
+        "NEXT_PUBLIC_SUPABASE_URL is set in Vercel",
+        "NEXT_PUBLIC_SUPABASE_ANON_KEY is set in Vercel",
+        "SUPABASE_SERVICE_ROLE_KEY is set in Vercel",
+        "STRIPE_SECRET_KEY is set in Vercel",
+        "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is set in Vercel",
+        "NEXT_PUBLIC_APP_URL is set in Vercel",
+        "A .env.example file exists documenting all required variables"
+      ],
+      "passes": false,
+      "notes": "Use Vercel MCP to set environment variables. Don't commit actual values."
+    },
+    {
+      "id": "story-006",
+      "title": "Supabase Client Libraries",
+      "description": "Create Supabase client utilities for browser, server, and admin access",
+      "acceptance_criteria": [
+        "File lib/supabase/client.ts exports createBrowserClient function",
+        "File lib/supabase/server.ts exports createServerClient function for server components",
+        "File lib/supabase/admin.ts exports createAdminClient using service role key",
+        "File lib/supabase/middleware.ts exports middleware helper for auth refresh",
+        "Types are generated from Supabase schema in types/database.ts",
+        "All clients use @supabase/ssr package correctly"
+      ],
+      "passes": false,
+      "notes": "Follow Supabase SSR documentation patterns."
+    },
+    {
+      "id": "story-007",
+      "title": "Authentication Middleware",
+      "description": "Set up Next.js middleware for auth session refresh and protected routes",
+      "acceptance_criteria": [
+        "File middleware.ts exists at project root",
+        "Middleware refreshes Supabase auth session on each request",
+        "Routes under /dashboard/* require authentication",
+        "Unauthenticated users redirected to /login",
+        "Routes under /api/v1/* allow both session and API key auth"
+      ],
+      "passes": false,
+      "notes": "Use the updateSession pattern from Supabase docs."
+    },
+    {
+      "id": "story-008",
+      "title": "Auth Pages - Login and Signup",
+      "description": "Create login and signup pages with Supabase Auth",
+      "acceptance_criteria": [
+        "Page /login exists with email/password form",
+        "Page /signup exists with email/password form",
+        "OAuth buttons for GitHub and Google are present",
+        "Form validation shows errors for invalid input",
+        "Successful login redirects to /dashboard",
+        "Successful signup sends confirmation email and shows message",
+        "Pages use shadcn/ui components for consistent styling"
+      ],
+      "passes": false,
+      "notes": "Use Supabase Auth UI or custom forms with signInWithPassword/signUp."
+    },
+    {
+      "id": "story-009",
+      "title": "Dashboard Layout",
+      "description": "Create the authenticated dashboard layout with sidebar navigation",
+      "acceptance_criteria": [
+        "File app/(dashboard)/layout.tsx exists",
+        "Sidebar navigation with links: Dashboard, Templates, API Keys, Usage, Settings",
+        "User avatar and dropdown menu in header with logout option",
+        "Mobile responsive with hamburger menu",
+        "Current page is highlighted in navigation",
+        "Layout fetches and displays user profile data"
+      ],
+      "passes": false,
+      "notes": "Use shadcn sidebar or custom implementation."
+    },
+    {
+      "id": "story-010",
+      "title": "Dashboard Home Page",
+      "description": "Create the main dashboard page showing usage stats and quick actions",
+      "acceptance_criteria": [
+        "Page /dashboard exists and renders",
+        "Shows current month PDF count vs limit (e.g., '127 / 500 PDFs')",
+        "Shows number of templates created",
+        "Shows current plan name",
+        "Quick start code snippet with user's API key (masked)",
+        "Recent generations list (last 5) with status and size",
+        "Buttons for: Generate PDF, Create Template, AI Template"
+      ],
+      "passes": false,
+      "notes": "Fetch data server-side using Supabase server client."
+    },
+    {
+      "id": "story-011",
+      "title": "API Key Management - Backend",
+      "description": "Create API endpoints for creating, listing, and revoking API keys",
+      "acceptance_criteria": [
+        "POST /api/keys creates new API key, returns full key ONCE",
+        "GET /api/keys returns list of user's keys (prefix only, not full key)",
+        "DELETE /api/keys/[id] revokes a key (sets revoked_at)",
+        "Keys are stored as SHA-256 hash, never in plain text",
+        "Key format is pk_live_[32 random chars]",
+        "Response includes key_prefix for display (first 8 chars)"
+      ],
+      "passes": false,
+      "notes": "Use crypto.randomBytes for key generation, crypto.createHash for hashing."
+    },
+    {
+      "id": "story-012",
+      "title": "API Key Management - Frontend",
+      "description": "Create UI for managing API keys in dashboard",
+      "acceptance_criteria": [
+        "Page /dashboard/api-keys exists",
+        "Shows list of existing API keys with name, prefix, created date, last used",
+        "Create button opens dialog to name new key",
+        "After creation, shows full key ONCE with copy button and warning",
+        "Delete button with confirmation dialog",
+        "Revoked keys shown differently (greyed out or separate section)"
+      ],
+      "passes": false,
+      "notes": "Use shadcn dialog, button, and table components."
+    },
+    {
+      "id": "story-013",
+      "title": "API Authentication Middleware",
+      "description": "Create middleware to authenticate API requests using API keys",
+      "acceptance_criteria": [
+        "File lib/api/auth.ts exports validateApiKey function",
+        "Accepts key from Authorization: Bearer header",
+        "Hashes provided key and compares to stored hashes",
+        "Returns user_id and api_key_id if valid",
+        "Updates last_used_at on the API key",
+        "Returns 401 with clear error message if invalid",
+        "Checks if key is revoked"
+      ],
+      "passes": false,
+      "notes": "This is the core auth for the public API."
+    },
+    {
+      "id": "story-014",
+      "title": "PDF Generation Core - Puppeteer Setup",
+      "description": "Set up Puppeteer for PDF generation with serverless-compatible configuration",
+      "acceptance_criteria": [
+        "File lib/pdf/generator.ts exports generatePdf function",
+        "Uses @sparticuz/chromium for serverless Chromium",
+        "Uses puppeteer-core to connect to Chromium",
+        "Function accepts html string and options object",
+        "Returns Buffer of generated PDF",
+        "Handles errors gracefully with meaningful messages",
+        "Works in both local dev and Vercel serverless"
+      ],
+      "passes": false,
+      "notes": "Follow Vercel's Puppeteer deployment guide. May need to increase function timeout."
+    },
+    {
+      "id": "story-015",
+      "title": "PDF Generation API Endpoint",
+      "description": "Create the main PDF generation API endpoint",
+      "acceptance_criteria": [
+        "POST /api/v1/generate accepts JSON body with html or url",
+        "Authenticates using API key",
+        "Validates request body with Zod schema",
+        "Generates PDF using Puppeteer",
+        "Uploads PDF to Supabase Storage",
+        "Creates generation record in database",
+        "Returns JSON with url, size, generation_id",
+        "Tracks duration_ms for the generation",
+        "Returns appropriate error responses (400, 401, 500)"
+      ],
+      "passes": false,
+      "notes": "This is the core API endpoint. Keep it simple for MVP."
+    },
+    {
+      "id": "story-016",
+      "title": "PDF Generation Options Support",
+      "description": "Extend PDF generation to support all formatting options",
+      "acceptance_criteria": [
+        "Supports format option: A4, Letter, Legal, Tabloid, A3, A5",
+        "Supports orientation: portrait, landscape",
+        "Supports margin: top, right, bottom, left (CSS units)",
+        "Supports headerTemplate and footerTemplate",
+        "Supports printBackground option",
+        "Supports scale option (0.1 to 2.0)",
+        "All options have sensible defaults",
+        "Invalid options return 400 with helpful error"
+      ],
+      "passes": false,
+      "notes": "Map these options to Puppeteer's pdf() method options."
+    },
+    {
+      "id": "story-017",
+      "title": "Usage Tracking and Limits",
+      "description": "Implement usage tracking and enforce plan limits",
+      "acceptance_criteria": [
+        "Each generation increments credits_used on subscription",
+        "Check credits_used < credits_limit before allowing generation",
+        "Return 402 Payment Required when limit exceeded",
+        "Include upgrade URL in error response",
+        "Function to get current usage for a user",
+        "Usage resets based on current_period_start/end"
+      ],
+      "passes": false,
+      "notes": "This enforces the freemium model."
+    },
+    {
+      "id": "story-018",
+      "title": "Usage Dashboard Page",
+      "description": "Create page showing detailed usage statistics",
+      "acceptance_criteria": [
+        "Page /dashboard/usage exists",
+        "Shows current period usage as progress bar",
+        "Shows usage by day for current period (simple chart or list)",
+        "Shows total generations all time",
+        "Shows average PDF size",
+        "Shows plan details and renewal date",
+        "Upgrade button if on free or starter plan"
+      ],
+      "passes": false,
+      "notes": "Query generations table grouped by date."
+    },
+    {
+      "id": "story-019",
+      "title": "Templates CRUD - Backend",
+      "description": "Create API endpoints for template management",
+      "acceptance_criteria": [
+        "POST /api/v1/templates creates new template",
+        "GET /api/v1/templates lists user's templates",
+        "GET /api/v1/templates/[id] returns single template",
+        "PUT /api/v1/templates/[id] updates template",
+        "DELETE /api/v1/templates/[id] deletes template",
+        "Templates support name, description, html, css, sample_data",
+        "Validate template HTML contains valid Handlebars syntax",
+        "Return 404 for templates not owned by user"
+      ],
+      "passes": false,
+      "notes": "Use Handlebars for variable substitution syntax."
+    },
+    {
+      "id": "story-020",
+      "title": "Template Generation Endpoint",
+      "description": "Create endpoint to generate PDF from a template with data",
+      "acceptance_criteria": [
+        "POST /api/v1/templates/[id]/generate accepts data object",
+        "Fetches template by ID (must belong to user or be public)",
+        "Substitutes variables in HTML using Handlebars",
+        "Generates PDF using the PDF generation service",
+        "Records generation with template_id reference",
+        "Returns same response format as /api/v1/generate"
+      ],
+      "passes": false,
+      "notes": "Install handlebars package for templating."
+    },
+    {
+      "id": "story-021",
+      "title": "Templates List Page",
+      "description": "Create page listing user's templates",
+      "acceptance_criteria": [
+        "Page /dashboard/templates exists",
+        "Shows grid of template cards with name, description, updated date",
+        "Each card has buttons: Edit, Duplicate, Delete",
+        "Create New Template button at top",
+        "Empty state with helpful message for new users",
+        "Search/filter functionality"
+      ],
+      "passes": false,
+      "notes": "Use shadcn card components."
+    },
+    {
+      "id": "story-022",
+      "title": "Template Editor Page",
+      "description": "Create page for editing template HTML and previewing",
+      "acceptance_criteria": [
+        "Page /dashboard/templates/[id] exists",
+        "Monaco editor (or textarea) for HTML editing",
+        "Optional CSS editor tab",
+        "Live preview panel showing rendered HTML",
+        "Sample data JSON editor for testing variables",
+        "Save button that persists changes",
+        "Preview as PDF button that generates test PDF"
+      ],
+      "passes": false,
+      "notes": "Use @monaco-editor/react for code editing. Can start with textarea for MVP."
+    },
+    {
+      "id": "story-023",
+      "title": "Stripe Checkout Integration",
+      "description": "Create Stripe Checkout session for plan upgrades",
+      "acceptance_criteria": [
+        "POST /api/stripe/checkout creates Checkout session",
+        "Accepts plan parameter (starter, pro, enterprise)",
+        "Creates or retrieves Stripe customer for user",
+        "Redirects to Stripe Checkout with correct price",
+        "Success URL returns to /dashboard with success message",
+        "Cancel URL returns to /pricing"
+      ],
+      "passes": false,
+      "notes": "Use Stripe MCP or SDK to create checkout sessions."
+    },
+    {
+      "id": "story-024",
+      "title": "Stripe Webhook Handler",
+      "description": "Handle Stripe webhooks for subscription lifecycle",
+      "acceptance_criteria": [
+        "POST /api/webhooks/stripe receives Stripe events",
+        "Validates webhook signature using STRIPE_WEBHOOK_SECRET",
+        "Handles checkout.session.completed - creates/updates subscription",
+        "Handles customer.subscription.updated - syncs plan changes",
+        "Handles customer.subscription.deleted - marks subscription canceled",
+        "Handles invoice.paid - resets credits_used, updates period dates",
+        "Returns 200 for handled events, 400 for signature errors"
+      ],
+      "passes": false,
+      "notes": "Critical for billing accuracy. Test thoroughly with Stripe CLI."
+    },
+    {
+      "id": "story-025",
+      "title": "Stripe Customer Portal",
+      "description": "Enable users to manage their subscription via Stripe Portal",
+      "acceptance_criteria": [
+        "POST /api/stripe/portal creates billing portal session",
+        "Redirects user to Stripe Customer Portal",
+        "User can update payment method",
+        "User can cancel subscription",
+        "Return URL brings user back to /dashboard/settings"
+      ],
+      "passes": false,
+      "notes": "Stripe Portal handles most billing UI needs."
+    },
+    {
+      "id": "story-026",
+      "title": "Settings Page",
+      "description": "Create settings page for profile and billing",
+      "acceptance_criteria": [
+        "Page /dashboard/settings exists",
+        "Profile section: name, email (read-only), avatar",
+        "Billing section: current plan, next billing date, manage button",
+        "Manage button links to Stripe Customer Portal",
+        "Delete account button with confirmation",
+        "Save profile changes persists to database"
+      ],
+      "passes": false,
+      "notes": "Keep it simple. Stripe Portal handles most billing UI."
+    },
+    {
+      "id": "story-027",
+      "title": "AI Template Generation - Backend",
+      "description": "Create endpoint that uses Claude to generate templates from prompts",
+      "acceptance_criteria": [
+        "POST /api/v1/ai/generate-template accepts prompt string",
+        "Sends prompt to Claude API with system prompt for HTML generation",
+        "Claude generates complete HTML template with Handlebars variables",
+        "Response includes generated HTML, extracted variables list",
+        "Saves as new template automatically",
+        "Returns template_id and preview_url",
+        "Limits AI generations based on plan (tracked separately)"
+      ],
+      "passes": false,
+      "notes": "This is the key differentiator. Craft the Claude prompt carefully."
+    },
+    {
+      "id": "story-028",
+      "title": "AI Template Generation - Frontend",
+      "description": "Create UI for AI template generation",
+      "acceptance_criteria": [
+        "Accessible from dashboard with 'AI Template ✨' button",
+        "Modal or page with large text input for prompt",
+        "Suggested prompts/examples shown",
+        "Style selector: minimal, corporate, creative, bold",
+        "Optional color picker for brand colors",
+        "Generate button with loading state",
+        "Shows preview of generated template",
+        "Save and Edit buttons after generation"
+      ],
+      "passes": false,
+      "notes": "Make this delightful - it's the wow feature."
+    },
+    {
+      "id": "story-029",
+      "title": "Landing Page - Hero Section",
+      "description": "Create the main marketing landing page hero section",
+      "acceptance_criteria": [
+        "Page / (root) shows marketing landing page",
+        "Hero section with headline: 'Generate Beautiful PDFs in Seconds'",
+        "Subheadline explaining the value proposition",
+        "CTA buttons: 'Get 50 Free PDFs' and 'View Docs'",
+        "Interactive code demo showing API usage",
+        "Visually striking design (not generic)",
+        "Mobile responsive"
+      ],
+      "passes": false,
+      "notes": "First impression matters. Make it memorable."
+    },
+    {
+      "id": "story-030",
+      "title": "Landing Page - Features Section",
+      "description": "Add features section to landing page",
+      "acceptance_criteria": [
+        "Features section with 4-6 key features",
+        "Each feature has icon, title, description",
+        "Features include: Simple API, AI Templates, Fast Generation, Developer Tools",
+        "Code snippets showing ease of use",
+        "Smooth scroll from hero CTA"
+      ],
+      "passes": false,
+      "notes": "Focus on developer pain points we solve."
+    },
+    {
+      "id": "story-031",
+      "title": "Pricing Page",
+      "description": "Create pricing page with plan comparison",
+      "acceptance_criteria": [
+        "Page /pricing exists",
+        "Shows all 4 plans: Free, Starter, Pro, Enterprise",
+        "Each plan shows: price, PDF limit, features included",
+        "Popular/recommended badge on Pro plan",
+        "CTA buttons link to signup or checkout",
+        "FAQ section answering common questions",
+        "Annual pricing toggle (optional for MVP)"
+      ],
+      "passes": false,
+      "notes": "Clear pricing builds trust."
+    },
+    {
+      "id": "story-032",
+      "title": "Documentation - Quick Start",
+      "description": "Create basic documentation for getting started",
+      "acceptance_criteria": [
+        "Page /docs or /docs/quickstart exists",
+        "Shows how to get API key",
+        "Shows first API request example (curl)",
+        "Shows response format",
+        "Links to full API reference",
+        "Copy buttons on code blocks",
+        "Clean, readable documentation style"
+      ],
+      "passes": false,
+      "notes": "Good docs are a competitive advantage."
+    },
+    {
+      "id": "story-033",
+      "title": "TypeScript SDK - Core",
+      "description": "Create TypeScript SDK for easy API integration",
+      "acceptance_criteria": [
+        "Package at packages/sdk or lib/sdk",
+        "Exports PDFCraft class with constructor taking apiKey",
+        "Method generate(options) calls POST /api/v1/generate",
+        "Method templates.list() calls GET /api/v1/templates",
+        "Method templates.generate(id, data) generates from template",
+        "Full TypeScript types for all options and responses",
+        "Handles errors with typed error classes"
+      ],
+      "passes": false,
+      "notes": "Publish to npm as @pdfcraft/sdk eventually."
+    },
+    {
+      "id": "story-034",
+      "title": "Error Handling and Logging",
+      "description": "Implement consistent error handling across the API",
+      "acceptance_criteria": [
+        "All API errors return consistent JSON format: {error: {code, message, details}}",
+        "Error codes are documented constants (INVALID_API_KEY, LIMIT_EXCEEDED, etc)",
+        "Validation errors include field-level details",
+        "500 errors don't leak internal details",
+        "Errors are logged server-side for debugging",
+        "Rate limit errors include retry-after header"
+      ],
+      "passes": false,
+      "notes": "Good errors save support time."
+    },
+    {
+      "id": "story-035",
+      "title": "Rate Limiting",
+      "description": "Implement rate limiting on API endpoints",
+      "acceptance_criteria": [
+        "Rate limit of 60 requests per minute per API key",
+        "Rate limit of 10 requests per minute for unauthenticated",
+        "Returns 429 Too Many Requests when exceeded",
+        "Response includes X-RateLimit-Limit, X-RateLimit-Remaining headers",
+        "Uses Vercel KV or Upstash Redis for distributed rate limiting"
+      ],
+      "passes": false,
+      "notes": "Protect the service from abuse."
+    },
+    {
+      "id": "story-036",
+      "title": "SEO and Meta Tags",
+      "description": "Add proper meta tags and SEO optimization",
+      "acceptance_criteria": [
+        "Root layout has proper title template",
+        "Each page has unique title and description",
+        "Open Graph tags for social sharing",
+        "Twitter card tags",
+        "Sitemap.xml generated",
+        "robots.txt configured",
+        "Canonical URLs set"
+      ],
+      "passes": false,
+      "notes": "SEO is a key growth channel for this product."
+    },
+    {
+      "id": "story-037",
+      "title": "Initial Deployment",
+      "description": "Deploy the application to Vercel production",
+      "acceptance_criteria": [
+        "Application deploys successfully to Vercel",
+        "All environment variables are set",
+        "Database migrations are applied",
+        "Stripe webhooks are configured with production URL",
+        "Custom domain configured (if available)",
+        "SSL certificate is active",
+        "All pages load without errors"
+      ],
+      "passes": false,
+      "notes": "Use Vercel MCP to deploy and configure."
+    },
+    {
+      "id": "story-038",
+      "title": "Smoke Tests",
+      "description": "Verify all core functionality works end-to-end",
+      "acceptance_criteria": [
+        "Can sign up new user",
+        "Can log in existing user",
+        "Can create API key",
+        "Can generate PDF via API",
+        "Can create and use template",
+        "Can upgrade to paid plan (test mode)",
+        "AI template generation works",
+        "All dashboard pages load correctly"
+      ],
+      "passes": false,
+      "notes": "Final verification before declaring MVP complete."
+    }
+  ],
+  "metadata": {
+    "total_stories": 38,
+    "estimated_iterations": 40,
+    "created_at": "2025-01-30",
+    "tech_stack": ["Next.js", "Supabase", "Stripe", "Puppeteer", "Claude API"],
+    "mcp_servers": ["supabase", "vercel", "stripe"]
+  }
+}
