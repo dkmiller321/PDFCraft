@@ -408,3 +408,48 @@ must be set manually in Vercel Dashboard.
 - [x] Auto-detects environment (serverless vs local)
 
 ---
+
+### Iteration 15 - story-015
+**Story:** PDF Generation API Endpoint
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created POST /api/v1/generate endpoint
+- Authenticates using validateApiKey
+- Validates body with Zod (html or url required)
+- Checks usage limits before generation
+- Generates PDF using Puppeteer
+- Uploads to Supabase Storage (pdfs bucket)
+- Creates generation record with status tracking
+- Returns generation_id, url, size_bytes, duration_ms
+- Increments credits_used on success
+- Error responses: 400 (validation), 401 (auth), 402 (limit), 500 (server)
+
+**Files Created:**
+- src/app/api/v1/generate/route.ts
+
+**API Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "generation_id": "uuid",
+    "url": "https://...",
+    "size_bytes": 12345,
+    "duration_ms": 1234
+  }
+}
+```
+
+**Verified:**
+- [x] POST /api/v1/generate accepts html or url
+- [x] Authenticates using API key
+- [x] Validates request with Zod schema
+- [x] Generates PDF using Puppeteer
+- [x] Uploads PDF to Supabase Storage
+- [x] Creates generation record in database
+- [x] Returns url, size, generation_id
+- [x] Tracks duration_ms
+- [x] Returns 400, 401, 402, 500 errors as appropriate
+
+---

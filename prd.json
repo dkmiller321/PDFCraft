@@ -230,7 +230,7 @@
         "Tracks duration_ms for the generation",
         "Returns appropriate error responses (400, 401, 500)"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "This is the core API endpoint. Keep it simple for MVP."
     },
     {
