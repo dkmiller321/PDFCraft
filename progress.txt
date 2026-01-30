@@ -293,3 +293,29 @@ must be set manually in Vercel Dashboard.
 - [x] Buttons for Create Template and AI Template
 
 ---
+
+### Iteration 11 - story-011
+**Story:** API Key Management - Backend
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created POST /api/keys - generates new API key, returns full key ONCE
+- Created GET /api/keys - lists user's keys (prefix only, not full key)
+- Created DELETE /api/keys/[id] - revokes key by setting revoked_at
+- Key format: pk_live_[32 random base64url chars]
+- SHA-256 hash stored in database (never plain text)
+- key_prefix is first 16 chars (pk_live_XXXXXXXX)
+
+**Files Created:**
+- src/app/api/keys/route.ts (GET, POST)
+- src/app/api/keys/[id]/route.ts (DELETE)
+
+**Verified:**
+- [x] POST /api/keys creates key and returns full_key once
+- [x] GET /api/keys returns keys with prefix only
+- [x] DELETE /api/keys/[id] sets revoked_at timestamp
+- [x] Keys stored as SHA-256 hash (createHash('sha256'))
+- [x] Key format is pk_live_[32 chars]
+- [x] Response includes key_prefix (first 16 chars)
+
+---

@@ -165,7 +165,7 @@
         "Key format is pk_live_[32 random chars]",
         "Response includes key_prefix for display (first 8 chars)"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use crypto.randomBytes for key generation, crypto.createHash for hashing."
     },
     {
