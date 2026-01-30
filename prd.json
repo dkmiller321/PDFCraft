@@ -341,7 +341,7 @@
         "Save button that persists changes",
         "Preview as PDF button that generates test PDF"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use @monaco-editor/react for code editing. Can start with textarea for MVP."
     },
     {

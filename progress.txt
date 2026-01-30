@@ -616,3 +616,32 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Search/filter functionality
 
 ---
+
+### Iteration 22 - story-022
+**Story:** Template Editor Page
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /dashboard/templates/[id] page
+- Textarea editor for HTML with Handlebars syntax
+- CSS editor tab for custom styles
+- Sample Data JSON editor for testing variables
+- Live preview panel with real-time Handlebars rendering
+- Save button persists changes to database
+- Preview as PDF button generates test PDF
+- Unsaved changes warning dialog
+- Editable name and description in header
+
+**Files Created:**
+- src/app/(dashboard)/dashboard/templates/[id]/page.tsx
+
+**Verified:**
+- [x] /dashboard/templates/[id] page exists
+- [x] Textarea for HTML editing
+- [x] CSS editor tab
+- [x] Live preview showing rendered HTML
+- [x] Sample data JSON editor
+- [x] Save button persists changes
+- [x] Preview as PDF button generates test PDF
+
+---
