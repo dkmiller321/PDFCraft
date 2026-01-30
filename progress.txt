@@ -130,3 +130,29 @@ Products must be created manually in Stripe Dashboard.
 - src/lib/stripe/config.ts (placeholder IDs need updating)
 
 ---
+
+### Iteration 5 - story-005
+**Story:** Environment Variables Configuration
+**Status:** ⚠️ BLOCKED - Vercel MCP lacks set_env tool
+
+**What Was Done:**
+- Created .env.example documenting all required variables
+- Retrieved Supabase project URL and anon key
+
+**Supabase Project Info:**
+- URL: https://mmywsbwmxrpogawwwlbm.supabase.co
+- Anon key available (see Supabase dashboard)
+
+**Blocking Issue:**
+Vercel MCP does not have set_env tool. Environment variables
+must be set manually in Vercel Dashboard.
+
+**Manual Steps Required:**
+1. Go to Vercel Dashboard > Project Settings > Environment Variables
+2. Add all variables from .env.example
+3. Get service_role key from Supabase Dashboard (Settings > API)
+
+**Files Created:**
+- .env.example
+
+---
