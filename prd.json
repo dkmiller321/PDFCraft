@@ -103,7 +103,7 @@
         "Unauthenticated users redirected to /login",
         "Routes under /api/v1/* allow both session and API key auth"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use the updateSession pattern from Supabase docs."
     },
     {

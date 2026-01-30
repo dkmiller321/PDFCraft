@@ -182,3 +182,26 @@ must be set manually in Vercel Dashboard.
 - [x] All clients use @supabase/ssr package correctly
 
 ---
+
+### Iteration 7 - story-007
+**Story:** Authentication Middleware
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created middleware.ts at project root
+- Refreshes Supabase auth session on every request
+- Protects /dashboard/* routes (redirects to /login if unauthenticated)
+- Allows /api/v1/* routes for both session and API key auth
+- Handles auth callbacks and static assets correctly
+
+**Files Created:**
+- middleware.ts
+
+**Verified:**
+- [x] middleware.ts exists at project root
+- [x] Middleware calls updateSession to refresh auth
+- [x] /dashboard/* routes check for user and redirect if null
+- [x] Redirect includes ?redirectTo= parameter for return URL
+- [x] /api/v1/* routes pass through (API key validation in handlers)
+
+---
