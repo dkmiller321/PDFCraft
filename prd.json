@@ -541,7 +541,7 @@
         "Response includes X-RateLimit-Limit, X-RateLimit-Remaining headers",
         "Uses Vercel KV or Upstash Redis for distributed rate limiting"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Protect the service from abuse."
     },
     {

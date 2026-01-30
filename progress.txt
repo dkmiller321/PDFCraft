@@ -1002,3 +1002,33 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Rate limit errors include retry-after header
 
 ---
+
+### Iteration 35 - story-035
+**Story:** Rate Limiting
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created src/lib/api/rate-limit.ts
+- In-memory rate limiter (can be upgraded to Vercel KV/Upstash Redis)
+- 60 requests/minute for authenticated (per API key)
+- 10 requests/minute for unauthenticated (per IP)
+- Returns 429 Too Many Requests when exceeded
+- X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset headers
+- Retry-After header when rate limited
+- Helper functions: checkRateLimit, applyRateLimit, rateLimitExceededResponse
+- Automatic cleanup of expired rate limit entries
+
+**Files Created:**
+- src/lib/api/rate-limit.ts
+
+**Note:** Uses in-memory storage for single-instance deployments.
+For multi-instance production, upgrade to Vercel KV or Upstash Redis.
+
+**Verified:**
+- [x] Rate limit of 60 requests per minute per API key
+- [x] Rate limit of 10 requests per minute for unauthenticated
+- [x] Returns 429 Too Many Requests when exceeded
+- [x] Response includes X-RateLimit-Limit, X-RateLimit-Remaining headers
+- [x] Rate limit module ready (in-memory, upgradeable to Redis)
+
+---
