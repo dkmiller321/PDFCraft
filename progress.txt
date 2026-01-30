@@ -645,3 +645,32 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Preview as PDF button generates test PDF
 
 ---
+
+### Iteration 23 - story-023
+**Story:** Stripe Checkout Integration
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Installed stripe npm package
+- Created POST /api/stripe/checkout endpoint
+- Validates plan parameter (starter, pro, enterprise)
+- Gets or creates Stripe customer from user session
+- Creates Stripe Checkout session with correct price
+- Success URL: /dashboard?success=true&plan={plan}
+- Cancel URL: /pricing?canceled=true
+- Stores user_id in subscription metadata
+
+**Files Created:**
+- src/app/api/stripe/checkout/route.ts
+
+**Note:** Requires STRIPE_SECRET_KEY env var and valid price IDs in config.
+
+**Verified:**
+- [x] POST /api/stripe/checkout creates Checkout session
+- [x] Accepts plan parameter (starter, pro, enterprise)
+- [x] Creates or retrieves Stripe customer for user
+- [x] Redirects to Stripe Checkout with correct price
+- [x] Success URL returns to /dashboard with success message
+- [x] Cancel URL returns to /pricing
+
+---

@@ -356,7 +356,7 @@
         "Success URL returns to /dashboard with success message",
         "Cancel URL returns to /pricing"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use Stripe MCP or SDK to create checkout sessions."
     },
     {
