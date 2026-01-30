@@ -401,7 +401,7 @@
         "Delete account button with confirmation",
         "Save profile changes persists to database"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Keep it simple. Stripe Portal handles most billing UI."
     },
     {

@@ -730,3 +730,28 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Return URL brings user back to /dashboard/settings
 
 ---
+
+### Iteration 26 - story-026
+**Story:** Settings Page
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /dashboard/settings page
+- Profile section with avatar, name (editable), email (read-only)
+- Billing section showing current plan, renewal date
+- Manage Billing button opens Stripe Customer Portal
+- Delete Account button with confirmation dialog
+- Save profile changes persists to database
+
+**Files Created:**
+- src/app/(dashboard)/dashboard/settings/page.tsx
+
+**Verified:**
+- [x] /dashboard/settings page exists
+- [x] Profile section: name, email (read-only), avatar
+- [x] Billing section: current plan, next billing date, manage button
+- [x] Manage button links to Stripe Customer Portal
+- [x] Delete account button with confirmation
+- [x] Save profile changes persists to database
+
+---
