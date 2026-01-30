@@ -5,9 +5,12 @@ import { validateApiKey, apiError } from '@/lib/api/auth'
 import { createAdminClient } from '@/lib/supabase/admin'
 import type { Json } from '@/types/database'
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-})
+// Lazy initialization to avoid build-time errors
+function getAnthropic() {
+  return new Anthropic({
+    apiKey: process.env.ANTHROPIC_API_KEY!,
+  })
+}
 
 // Request validation schema
 const generateTemplateSchema = z.object({
@@ -96,7 +99,7 @@ Include a <style> block with all CSS.
 The template should be complete and ready to use.`
 
   try {
-    const message = await anthropic.messages.create({
+    const message = await getAnthropic().messages.create({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 4096,
       system: systemPrompt,

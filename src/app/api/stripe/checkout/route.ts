@@ -5,9 +5,12 @@ import { createServerClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { STRIPE_PRODUCTS, type PlanType } from '@/lib/stripe/config'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-01-28.clover',
-})
+// Lazy initialization to avoid build-time errors
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2026-01-28.clover',
+  })
+}
 
 const checkoutSchema = z.object({
   plan: z.enum(['starter', 'pro', 'enterprise']),
@@ -70,7 +73,7 @@ export async function POST(request: Request) {
 
   if (!customerId) {
     // Create new Stripe customer
-    const customer = await stripe.customers.create({
+    const customer = await getStripe().customers.create({
       email: user.email,
       metadata: {
         user_id: user.id,
@@ -89,7 +92,7 @@ export async function POST(request: Request) {
   const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
   // Create Checkout session
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     customer: customerId,
     payment_method_types: ['card'],
     line_items: [

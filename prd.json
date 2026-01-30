@@ -574,7 +574,7 @@
         "All pages load without errors"
       ],
       "passes": false,
-      "notes": "Use Vercel MCP to deploy and configure."
+      "notes": "PARTIAL: Deployment succeeded at pdfcraft-blue.vercel.app. BLOCKED: Vercel MCP lacks set_env tool. Manual setup required for environment variables and Stripe webhook configuration. See progress.txt for detailed manual steps."
     },
     {
       "id": "story-038",

@@ -3,11 +3,16 @@ import Stripe from 'stripe'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { getPlanByPriceId, getCreditsForPlan, type PlanType } from '@/lib/stripe/config'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-01-28.clover',
-})
+// Lazy initialization to avoid build-time errors
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!, {
+    apiVersion: '2026-01-28.clover',
+  })
+}
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
+function getWebhookSecret() {
+  return process.env.STRIPE_WEBHOOK_SECRET!
+}
 
 /**
  * POST /api/webhooks/stripe - Handle Stripe webhook events
@@ -26,7 +31,7 @@ export async function POST(request: Request) {
   let event: Stripe.Event
 
   try {
-    event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
+    event = getStripe().webhooks.constructEvent(body, signature, getWebhookSecret())
   } catch (err) {
     console.error('Webhook signature verification failed:', err)
     return NextResponse.json(
@@ -113,7 +118,7 @@ async function handleCheckoutCompleted(
   const stripeCustomerId = session.customer as string
 
   // Fetch the subscription to get price details
-  const subscription = await stripe.subscriptions.retrieve(stripeSubscriptionId)
+  const subscription = await getStripe().subscriptions.retrieve(stripeSubscriptionId)
   const priceId = subscription.items.data[0]?.price.id
 
   const detectedPlan = getPlanByPriceId(priceId) || planFromMetadata
@@ -222,7 +227,7 @@ async function handleInvoicePaid(
   const subscriptionId = invoiceWithSub.subscription
 
   // Get subscription details from Stripe
-  const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+  const subscription = await getStripe().subscriptions.retrieve(subscriptionId)
   const userId = subscription.metadata?.user_id
 
   if (!userId) {
