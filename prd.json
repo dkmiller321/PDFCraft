@@ -278,7 +278,7 @@
         "Shows plan details and renewal date",
         "Upgrade button if on free or starter plan"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Query generations table grouped by date."
     },
     {

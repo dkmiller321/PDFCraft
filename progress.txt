@@ -494,3 +494,28 @@ All options already implemented in /api/v1/generate:
 - [x] Usage resets based on period (resetUsagePeriod)
 
 ---
+
+### Iteration 18 - story-018
+**Story:** Usage Dashboard Page
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /dashboard/usage page
+- Progress bar showing current period usage
+- Daily usage breakdown with simple bar chart
+- Stats cards: plan, total generated, average size, renewal date
+- Upgrade button for free/starter plans
+
+**Files Created:**
+- src/app/(dashboard)/dashboard/usage/page.tsx
+
+**Verified:**
+- [x] /dashboard/usage page exists
+- [x] Progress bar with current usage
+- [x] Daily usage list with visual bars
+- [x] Total generations all time
+- [x] Average PDF size
+- [x] Plan details and renewal date
+- [x] Upgrade button for free/starter plans
+
+---
