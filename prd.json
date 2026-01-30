@@ -591,7 +591,7 @@
         "All dashboard pages load correctly"
       ],
       "passes": false,
-      "notes": "Final verification before declaring MVP complete."
+      "notes": "BLOCKED: Requires environment variables to be set first (story-037 manual steps). See progress.txt for complete smoke test checklist. Run tests after env vars are configured in Vercel Dashboard."
     }
   ],
   "metadata": {

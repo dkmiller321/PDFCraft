@@ -1130,3 +1130,85 @@ Environment variables must be set manually in Vercel Dashboard.
 - [ ] All pages load without errors (needs env vars first)
 
 ---
+
+### Iteration 38 - story-038
+**Story:** Smoke Tests
+**Status:** ⚠️ BLOCKED - Requires Manual Environment Variable Setup First
+
+**Blocking Issue:**
+Smoke tests cannot be executed until environment variables are configured in Vercel.
+This is blocked on completing story-037's manual steps.
+
+**Smoke Test Checklist (to run after env vars are set):**
+
+1. **Sign up new user**
+   - Visit https://pdfcraft-blue.vercel.app/signup
+   - Enter email and password
+   - Verify confirmation email is sent
+   - Verify profile and subscription are created in Supabase
+
+2. **Log in existing user**
+   - Visit https://pdfcraft-blue.vercel.app/login
+   - Enter credentials
+   - Verify redirect to /dashboard
+
+3. **Create API key**
+   - Go to /dashboard/api-keys
+   - Click "Create New Key"
+   - Verify key is displayed once
+   - Verify key appears in list with prefix
+
+4. **Generate PDF via API**
+   ```bash
+   curl -X POST https://pdfcraft-blue.vercel.app/api/v1/generate \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"html": "<h1>Test PDF</h1>"}'
+   ```
+   - Verify PDF is generated and URL is returned
+
+5. **Create and use template**
+   - Go to /dashboard/templates
+   - Create new template with Handlebars variables
+   - Save and test with sample data
+   - Generate PDF from template
+
+6. **Upgrade to paid plan (test mode)**
+   - Go to /pricing
+   - Click upgrade on Starter plan
+   - Complete Stripe test checkout
+   - Verify subscription is updated in database
+
+7. **AI template generation**
+   - Go to /dashboard/ai-template
+   - Enter prompt: "Create an invoice template"
+   - Select style and generate
+   - Verify template is created (requires Pro/Enterprise plan)
+
+8. **Dashboard pages load correctly**
+   - /dashboard - main stats page
+   - /dashboard/templates - templates list
+   - /dashboard/api-keys - API key management
+   - /dashboard/usage - usage statistics
+   - /dashboard/settings - profile and billing
+   - /dashboard/ai-template - AI generation
+
+**To Complete This Story:**
+1. Complete manual steps from story-037 (set env vars in Vercel)
+2. Trigger redeployment in Vercel
+3. Run through smoke test checklist above
+4. Mark story-038 as passes: true once all tests pass
+
+---
+
+## Summary
+
+**Completed Stories:** 36 of 38
+**Blocked Stories:** 2 (story-037 partial, story-038 blocked)
+
+**Manual Action Required:**
+Stories 037 and 038 cannot be completed autonomously because
+Vercel MCP lacks environment variable management tools.
+
+See story-037 notes for the complete list of environment variables
+that need to be set in Vercel Dashboard.
