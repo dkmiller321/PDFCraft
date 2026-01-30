@@ -453,3 +453,44 @@ must be set manually in Vercel Dashboard.
 - [x] Returns 400, 401, 402, 500 errors as appropriate
 
 ---
+
+### Iteration 16 - story-016
+**Story:** PDF Generation Options Support
+**Status:** ✅ Complete (implemented in story-015)
+
+All options already implemented in /api/v1/generate:
+- format: A4, Letter, Legal, Tabloid, A3, A5
+- orientation: portrait, landscape
+- margin: top, right, bottom, left (CSS units)
+- headerTemplate, footerTemplate
+- printBackground
+- scale (0.1 to 2.0)
+- Zod validation returns 400 for invalid options
+- Defaults: A4, portrait, 1cm margins, printBackground=true
+
+---
+
+### Iteration 17 - story-017
+**Story:** Usage Tracking and Limits
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created lib/usage/tracker.ts with usage tracking functions
+- getCurrentUsage(userId) - Get full usage info
+- canGenerate(userId) - Check if user has credits
+- incrementUsage(userId) - Increment after generation
+- resetUsagePeriod(userId) - Reset when period ends
+- Auto-resets usage when current_period_end is passed
+
+**Files Created:**
+- src/lib/usage/tracker.ts
+
+**Verified:**
+- [x] Increments credits_used (implemented in story-015)
+- [x] Checks credits_used < credits_limit (story-015)
+- [x] Returns 402 when limit exceeded (story-015)
+- [x] Include upgrade URL in error (story-015)
+- [x] Function to get current usage (getCurrentUsage)
+- [x] Usage resets based on period (resetUsagePeriod)
+
+---

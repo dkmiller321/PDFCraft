@@ -247,7 +247,7 @@
         "All options have sensible defaults",
         "Invalid options return 400 with helpful error"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Map these options to Puppeteer's pdf() method options."
     },
     {
@@ -262,7 +262,7 @@
         "Function to get current usage for a user",
         "Usage resets based on current_period_start/end"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "This enforces the freemium model."
     },
     {
