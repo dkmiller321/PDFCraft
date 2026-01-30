@@ -319,3 +319,29 @@ must be set manually in Vercel Dashboard.
 - [x] Response includes key_prefix (first 16 chars)
 
 ---
+
+### Iteration 12 - story-012
+**Story:** API Key Management - Frontend
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /dashboard/api-keys page
+- Table showing keys with name, prefix, created, last used
+- Create dialog for naming new key
+- Show key dialog with full key, copy button, and warning
+- Delete button with AlertDialog confirmation
+- Revoked keys in separate greyed-out section
+
+**Files Created:**
+- src/app/(dashboard)/dashboard/api-keys/page.tsx
+- src/components/ui/dialog.tsx, table.tsx, alert-dialog.tsx
+
+**Verified:**
+- [x] /dashboard/api-keys page exists
+- [x] Shows list with name, prefix, created date, last used
+- [x] Create button opens dialog for key name
+- [x] After creation shows full key with copy button and warning
+- [x] Delete button with confirmation dialog
+- [x] Revoked keys shown in separate greyed section
+
+---

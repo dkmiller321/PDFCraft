@@ -180,7 +180,7 @@
         "Delete button with confirmation dialog",
         "Revoked keys shown differently (greyed out or separate section)"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use shadcn dialog, button, and table components."
     },
     {
