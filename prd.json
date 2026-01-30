@@ -89,7 +89,7 @@
         "Types are generated from Supabase schema in types/database.ts",
         "All clients use @supabase/ssr package correctly"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Follow Supabase SSR documentation patterns."
     },
     {
