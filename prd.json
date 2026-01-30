@@ -417,7 +417,7 @@
         "Returns template_id and preview_url",
         "Limits AI generations based on plan (tracked separately)"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "This is the key differentiator. Craft the Claude prompt carefully."
     },
     {

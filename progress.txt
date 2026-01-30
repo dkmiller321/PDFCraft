@@ -755,3 +755,35 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Save profile changes persists to database
 
 ---
+
+### Iteration 27 - story-027
+**Story:** AI Template Generation - Backend
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Installed @anthropic-ai/sdk package
+- Created POST /api/v1/ai/generate-template endpoint
+- Accepts prompt, style (minimal/corporate/creative/bold), primaryColor
+- Sends prompt to Claude API with detailed system prompt
+- Claude generates complete HTML template with Handlebars variables
+- Extracts variables automatically from generated HTML
+- Creates sample data for each variable
+- Saves as new template automatically
+- Limits to Pro and Enterprise plans only
+- Returns template_id, name, html, variables, preview_url
+
+**Files Created:**
+- src/app/api/v1/ai/generate-template/route.ts
+
+**Note:** Requires ANTHROPIC_API_KEY env var.
+
+**Verified:**
+- [x] POST /api/v1/ai/generate-template accepts prompt string
+- [x] Sends prompt to Claude API with system prompt
+- [x] Claude generates HTML template with Handlebars variables
+- [x] Response includes generated HTML, extracted variables list
+- [x] Saves as new template automatically
+- [x] Returns template_id and preview_url
+- [x] Limits AI generations based on plan (Pro/Enterprise only)
+
+---
