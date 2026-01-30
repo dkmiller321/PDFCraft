@@ -480,7 +480,7 @@
         "FAQ section answering common questions",
         "Annual pricing toggle (optional for MVP)"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Clear pricing builds trust."
     },
     {

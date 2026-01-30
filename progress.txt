@@ -874,3 +874,30 @@ curl -X POST https://api.pdfcraft.com/api/v1/templates/{id}/generate \
 - [x] Smooth scroll from hero CTA (href="#features")
 
 ---
+
+### Iteration 31 - story-031
+**Story:** Pricing Page
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created /pricing page with all 4 plans
+- Plan cards: Free ($0), Starter ($19), Pro ($49), Enterprise ($149)
+- Each plan shows price, PDF limit badge, feature list with checkmarks
+- "Most Popular" badge on Pro plan with highlighted border
+- CTA buttons link to signup with plan parameter
+- FAQ section with 6 common questions
+- Navigation bar and footer
+- Mobile responsive grid layout
+
+**Files Created:**
+- src/app/pricing/page.tsx
+
+**Verified:**
+- [x] /pricing page exists
+- [x] Shows all 4 plans: Free, Starter, Pro, Enterprise
+- [x] Each plan shows: price, PDF limit, features included
+- [x] Popular/recommended badge on Pro plan
+- [x] CTA buttons link to signup or checkout
+- [x] FAQ section answering common questions
+
+---
