@@ -134,7 +134,7 @@
         "Current page is highlighted in navigation",
         "Layout fetches and displays user profile data"
       ],
-      "passes": false,
+      "passes": true,
       "notes": "Use shadcn sidebar or custom implementation."
     },
     {

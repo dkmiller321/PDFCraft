@@ -236,3 +236,31 @@ must be set manually in Vercel Dashboard.
 - [x] Pages use shadcn/ui components (Card, Button, Input, Label)
 
 ---
+
+### Iteration 9 - story-009
+**Story:** Dashboard Layout
+**Status:** ✅ Complete
+
+**What Was Done:**
+- Created dashboard layout with sidebar and header
+- Sidebar with navigation links (Dashboard, Templates, API Keys, Usage, Settings)
+- User avatar dropdown with profile/billing/logout options
+- Mobile responsive with Sheet (hamburger menu)
+- Active page highlighting in navigation
+- Fetches user profile data server-side
+
+**Files Created:**
+- src/app/(dashboard)/layout.tsx
+- src/components/dashboard/sidebar.tsx
+- src/components/dashboard/header.tsx
+- src/components/ui/dropdown-menu.tsx, avatar.tsx, separator.tsx, sheet.tsx
+
+**Verified:**
+- [x] app/(dashboard)/layout.tsx exists
+- [x] Sidebar has all 5 navigation links
+- [x] User avatar with dropdown menu (profile, billing, logout)
+- [x] Mobile hamburger menu using Sheet component
+- [x] Active page highlighted with primary color
+- [x] Layout fetches profile from Supabase
+
+---
